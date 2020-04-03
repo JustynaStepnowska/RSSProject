@@ -1,0 +1,67 @@
+﻿@model RSSProject.Models.RSS
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label asp-for="RSSAddress" class="control-label"></label>
+                            <input asp-for="RSSAddress" class="form-control" value=@ViewBag.Url/>
+                            <span asp-validation-for="RSSAddress" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" value="jstepnowska.js@gmail.com"/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                    <br />
+                    <label class="control-label"> Debug </label>
+                    @Html.TextArea("EmailText", (string)ViewBag.EmailText, 15, 1, new { @class = "form-control" })
+                    
+                    
+                    <br />
+
+                    <div class="btn-group">
+                        <input type="submit" value="Create" name="create" class="btn btn-secondary" />
+                        <input type="submit" value="Send" name="send" class="btn btn-primary" />
+                    </div>
+            </form>
+        </div>
+        
+        <div class="col-lg-4">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th> RSS </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        @foreach (var item in ViewBag.ListOfRSS)
+                        {
+                            <tr>
+                                <td> @item.RSSAddress </td>
+                            </tr>
+                        }
+                   
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
